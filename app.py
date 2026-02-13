@@ -3,7 +3,6 @@ import re
 from io import BytesIO
 
 import streamlit as st
-from dotenv import load_dotenv
 from openai import OpenAI
 from pypdf import PdfReader
 
@@ -52,8 +51,7 @@ def main() -> None:
     st.set_page_config(page_title="History Assistant", layout="wide")
     st.title("History Assistant")
 
-    load_dotenv()
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
     server_addr = os.getenv("STREAMLIT_SERVER_ADDRESS", "localhost")
     server_port = os.getenv("STREAMLIT_SERVER_PORT", "8501")
     st.caption(f"アクセスURL（推定）: http://{server_addr}:{server_port}")
